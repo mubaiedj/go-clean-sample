@@ -10,7 +10,7 @@ type metrics struct {
 	errors      *prometheus.CounterVec
 }
 
-const APP = "go-clean-sample"
+const APP = "goCleanSample"
 
 var metricsCli *metrics
 
