@@ -1,0 +1,11 @@
+web:
+ port: 8080
+feature:
+ flags:
+  login: true
+  save: true
+jwt:
+ key: pepito
+ username: admin
+ password: secreto
+ duration: 43200
