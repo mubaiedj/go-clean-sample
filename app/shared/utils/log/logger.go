@@ -88,15 +88,6 @@ func (logger *Logger) WithError(err error) *Logger {
 	return logCustom
 }
 
-func WithSource(source string) *Logger { return instance.WithSource(source) }
-func (logger *Logger) WithSource(source string) *Logger {
-	logCustom := &Logger{
-		log: initLoggerZap(),
-	}
-	logCustom.log = logCustom.log.With(zap.String("source", source))
-	return logCustom
-}
-
 func Info(message string, args ...interface{}) { instance.Info(message, args...) }
 func (logger *Logger) Info(message string, args ...interface{}) {
 	logger.log.Info(fmt.Sprintf(message, args...))

@@ -11,7 +11,7 @@ func AutoMigrateEntities(connection cockroach_connection.CockroachConnection) {
 	log.Info("AutoMigrateEntities...")
 	migrate := cockroach_connection.NewMigrate(connection)
 	migrate.AutoMigrateAll(
-		db_model.MessageStatus{},
+		db_model.Order{},
 	)
 	log.Info("AutoMigrateEntities... OK")
 }

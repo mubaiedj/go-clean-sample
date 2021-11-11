@@ -26,10 +26,10 @@ func NewOrderUseCase(repository repository.OrdersRepository) *orderUseCase {
 }
 
 func (s *orderUseCase) Process(order *entity.Order) (*entity.Order, error) {
-	order.Channel = status.INIT
+	order.State = status.INIT
 	savedOrder, err := s.ordersRepository.Create(order)
 	if err != nil {
-		log.WithError(err).Error("error trying to save order")
+		log.WithError(err).Error("Error trying to save order")
 		return nil, custom_errors.NewWithError(err, custom_errors.DataBaseError)
 	}
 	log.WithFields(log.Field("order", savedOrder.Id)).Info("Order saved successfully")

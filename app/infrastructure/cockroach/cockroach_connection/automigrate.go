@@ -15,10 +15,10 @@ func NewMigrate(connection CockroachConnection) *Migrate {
 func (m *Migrate) AutoMigrateAll(tables ...interface{}) {
 	db, err := m.connection.GetConnection()
 	if err != nil {
-		log.WithSource("MIGRATIONS").WithError(err).Fatal(err.Error())
+		log.WithError(err).Fatal("Error getting connection to database")
 	}
 	db = db.AutoMigrate(tables...)
 	if db.Error != nil {
-		log.WithSource("MIGRATIONS").WithError(db.Error).Fatal(db.Error.Error())
+		log.WithError(db.Error).Fatal("Error migrating entities")
 	}
 }

@@ -40,7 +40,7 @@ func (r *CockroachDBConnection) GetConnection() (*gorm.DB, error) {
 		log.Info("Trying to connect to DB")
 		connection, err = gorm.Open("postgres", r.url)
 		if err != nil {
-			log.WithError(err).Error("error trying to connect to DB")
+			log.WithError(err).Error("Error trying to connect to DB")
 			return nil, err
 		} else {
 			log.Info("Connected to DB")
