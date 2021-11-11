@@ -1,0 +1,18 @@
+web:
+ port: 8080
+feature:
+ flags:
+  login: true
+  save: true
+datasource:
+  type: "cockroachdb"
+  host: "localhost"
+  port: 26257
+  database: "sample"
+  user: "root"
+  password: ""
+jwt:
+ key: pepito
+ username: admin
+ password: secreto
+ duration: 43200

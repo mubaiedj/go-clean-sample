@@ -11,6 +11,13 @@ feature:
  flags:
   login: true
   save: true
+datasource:
+  type: cockroachdb
+  host: localhost
+  port: 26257
+  database:
+  user:
+  password:
 jwt:
  key: <add-your-key>
  username: <add-your-username>
