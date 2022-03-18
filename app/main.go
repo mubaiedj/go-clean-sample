@@ -9,10 +9,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-	"time"
 )
-
-const tenSecondRule = 10 * time.Second
 
 func main() {
 	log.Info("Preparing app configurations")
@@ -33,17 +30,17 @@ func main() {
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
 
-	//WebServer
+	//Start WebServer
 	web.NewWebServer()
 	web.InitRoutes(orderUseCase)
 	go web.Start(config.GetString("web.port"))
 
 	//Graceful Shutdown process
 	sig := <-quit
-	gracefulShutdown(sig, web.Shutdown)
+	gracefulShutdown(sig)
 }
 
-func gracefulShutdown(sig os.Signal, shutdownWebServer func()) {
-	shutdownWebServer()
+func gracefulShutdown(sig os.Signal) {
+	web.Shutdown()
 	log.Info("Shutdown process completed for signal: %v", sig)
 }

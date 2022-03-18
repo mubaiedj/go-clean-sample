@@ -1,6 +1,7 @@
 package web
 
 import (
+	"context"
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -17,7 +18,7 @@ var echoServer *echo.Echo
 func NewWebServer() {
 	echoServer = echo.New()
 	echoServer.HideBanner = true
-	//echoServer.Use(middleware.Recover())
+	echoServer.HidePort = true
 	echoServer.Use(middleware.CORS())
 	echoServer.Use(middleware.RequestID())
 	echoServer.Validator = json_validator.NewJsonValidator()
@@ -39,4 +40,13 @@ func Start(port string) {
 	}
 	log.Info("App listen in port %s", port)
 	echoServer.Logger.Fatal(echoServer.StartServer(server))
+}
+
+func Shutdown() {
+	log.Info("Shutting down web server")
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	if err := echoServer.Shutdown(ctx); err != nil {
+		log.Fatal("Error shutting down web server")
+	}
 }
